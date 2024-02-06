@@ -168,6 +168,36 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
         }
     }
 
+    /**
+     * Sorts the ArrayList in an increasing order.
+     * @param low - the lowest index in the ArrayList to be sorted
+     * @param high - the highest index in the ArrayList to be sorted
+     */
+    public void quickSort(int low, int high) {
+        if (elementData.length == 0 || low >= high) return;
+
+        int middle = low + (high - low) / 2;
+        int border = (int) elementData[middle];
+
+        int i = low, j = high;
+        while (i <= j) {
+            while ((int) elementData[i] < border) i++;
+            while ((int) elementData[j] > border) j--;
+            if (i <= j) {
+                int swap = (int) elementData[i];
+                elementData[i] = elementData[j];
+                elementData[j] = swap;
+                i++;
+                j--;
+            }
+        }
+
+        if (low < j) quickSort(low, j);
+        if (high > i) quickSort(i, high);
+    }
+
+
+
     private void add(E e, Object[] elementData, int s) {
         if (s == elementData.length)
             elementData = grow();

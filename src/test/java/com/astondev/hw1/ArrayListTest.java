@@ -94,4 +94,56 @@ class ArrayListTest {
         integerArrayList.add("4");
         Assertions.assertEquals(16, integerArrayList.elementData.length);
     }
+
+    @Test
+    void whenQuickSort126411510Then146101215() {
+        ArrayList<Integer> sortArr = new ArrayList<>();
+        sortArr.add(12);
+        sortArr.add(6);
+        sortArr.add(4);
+        sortArr.add(1);
+        sortArr.add(15);
+        sortArr.add(10);
+        sortArr.quickSort(0, sortArr.size() - 1);
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(4);
+        expected.add(6);
+        expected.add(10);
+        expected.add(12);
+        expected.add(15);
+        Assertions.assertEquals(expected, sortArr);
+    }
+
+    @Test
+    void whenQuickSort888999000111Then000111888999() {
+        ArrayList<Integer> sortArr = new ArrayList<>();
+        sortArr.add(8);
+        sortArr.add(8);
+        sortArr.add(8);
+        sortArr.add(9);
+        sortArr.add(9);
+        sortArr.add(9);
+        sortArr.add(0);
+        sortArr.add(0);
+        sortArr.add(0);
+        sortArr.add(1);
+        sortArr.add(1);
+        sortArr.add(1);
+        sortArr.quickSort(0, sortArr.size() - 1);
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(0);
+        expected.add(0);
+        expected.add(0);
+        expected.add(1);
+        expected.add(1);
+        expected.add(1);
+        expected.add(8);
+        expected.add(8);
+        expected.add(8);
+        expected.add(9);
+        expected.add(9);
+        expected.add(9);
+        Assertions.assertEquals(expected, sortArr);
+    }
 }
