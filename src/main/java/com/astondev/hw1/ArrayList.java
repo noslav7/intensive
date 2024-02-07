@@ -17,6 +17,7 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
     private static final int DEFAULT_CAPACITY = 10;
     private static final Object[] EMPTY_ELEMENTDATA = {};
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    public static final String MSG_PATTERN = "Illegal Capacity: %d";
     Object[] elementData;
     private int size;
 
@@ -38,8 +39,7 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
         } else if (initialCapacity == 0) {
             this.elementData = EMPTY_ELEMENTDATA;
         } else {
-            throw new IllegalArgumentException("Illegal Capacity: " +
-                    initialCapacity);
+            throw new IllegalArgumentException(String.format(MSG_PATTERN, initialCapacity)); // так лучше
         }
     }
 
@@ -107,11 +107,10 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
         modCount++;
         final int s;
         Object[] elementData;
-        if ((s = size) == (elementData = this.elementData).length)
+        if ((s = size) == (elementData = this.elementData).length) {
             elementData = grow();
-        System.arraycopy(elementData, index,
-                elementData, index + 1,
-                s - index);
+        }
+        System.arraycopy(elementData, index, elementData, index + 1, s - index);
         elementData[index] = element;
         size = s + 1;
     }
@@ -130,14 +129,10 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
         final int size = this.size;
         int i = 0;
         found: {
-            if (o == null) {
-                for (; i < size; i++)
-                    if (es[i] == null)
-                        break found;
-            } else {
-                for (; i < size; i++)
-                    if (o.equals(es[i]))
-                        break found;
+            for (; i < size; i++) {
+                if (Objects.equals(es[i], o)) {
+                    break found;
+                }
             }
             return false;
         }
@@ -199,7 +194,7 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
 
 
     private void add(E e, Object[] elementData, int s) {
-        if (s == elementData.length)
+        if (s == elementData.length) // не забывай про {} это улучшает читаемость
             elementData = grow();
         elementData[s] = e;
         size = s + 1;
